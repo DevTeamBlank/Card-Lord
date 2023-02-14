@@ -4,19 +4,25 @@ using UnityEngine;
 
 public interface ICard {
 
-    void GetCardType(GameObject card);
-    void Played(int choice);
-    bool IsUsableAs(CardType anotherType); // check through HandManager
+    CardType GetCardType();
 
+    void UpdateSprite();
 
 }
 
-public enum CardType {
-    gold,
-    food,
-    resource,
-    civil,
-    military,
-    karma,
-    heritage
+[System.Serializable]
+public struct CardType {
+    public enum CardName {
+        gold, 
+        food,
+        resource,
+        civil,
+        military,
+        karma,
+        heritage
+    }
+
+    [SerializeField]
+    public CardName cardType;
 }
+
