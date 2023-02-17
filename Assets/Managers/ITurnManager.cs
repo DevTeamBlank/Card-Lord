@@ -5,8 +5,6 @@ using UnityEngine;
 public interface ITurnManager {
 
 
-
-
     public AgeType GetAge();
     public int GetTurn();
     public void NextTurn();

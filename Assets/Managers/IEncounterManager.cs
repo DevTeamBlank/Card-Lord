@@ -12,5 +12,7 @@ public interface IEncounterManager {
      */
 
     Encounter GetCurrentEncounter();
+    void DrawNextEncounter();
+
 
 }

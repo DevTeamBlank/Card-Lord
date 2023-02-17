@@ -4,68 +4,32 @@ using UnityEngine;
 
 public class Encounter : MonoBehaviour, IEncounter {
 
-    public readonly int index;
-    public readonly string nomenclature;
-    public readonly string text;
+    public readonly int index_;
+    public readonly string nomenclature_;
+    public readonly string text_;
 
-    [SerializeField] ChoiceStruct[] choiceStructs;
-    Choice[] choices;
-
-    private void Start() {
-        choices = new Choice[choiceStructs.Length];
-        for (int i = 0; i < choices.Length; i++) {
-
-        }
-    }
-
-
-    private void Update() {
-        if (true) { // when clicked
-                    // calculate which choice has chosen
-                    // Call InputManager
-        }
-    }
-
+    public GameObject[] choices;
 
     public void Display() {
 
     }
 
-    protected struct ChoiceStruct {
-        int number;
-        CardType[] requireList;
-        CardType[][] awardList;
+    public void Encountered() {
+        encountered = true;
     }
 
-    protected class Choice {
-        readonly int number;
-        readonly CardType[] requireList;
-        readonly CardType[][] awardList; // may affected by random
+    [SerializeField] protected bool encountered = false;
+    [SerializeField] protected bool isEncountable = true;
 
-        public Choice(int number, CardType[] requireList, CardType[][] awardList) {
-            this.number = number;
-        }
-
-
-        public bool IsChoosable() {
-            // Check EncounterManager
-            // TODO
+    public bool IsEncountable() {
+        if (encountered) {
             return false;
         }
+        return isEncountable;
+    }
 
-
-        public void Affect() { // when this choice is choosen
-            GetAward();
-            // TurnManager.Inst.
-            // TurnManager(); 에게 넘김
-        }
-
-        private void GetAward() {
-            int random = Random.Range(0, awardList.Length);
-            CardType[] award = awardList[random];
-            CardManager.Inst.ReceiveCards(award);
-        }
+    public virtual void UpdateEncountablity(int[] numberOfCurrentChips) {
+        // 상속받아서 구현할 것
+        throw new System.NotImplementedException();
     }
 }
-
-
