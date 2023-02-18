@@ -4,18 +4,26 @@ using UnityEngine;
 
 public interface ITurnManager {
 
+    public static readonly int MAX_TURN = 40;
 
     public AgeType GetAge();
+
+    public void AgeStart();
+    public void AgeEnd();
+
     public int GetTurn();
-    public void NextTurn();
-    public void DrawNextEncounter();
+    public void TurnStart();
+
+    public void TurnEnd();
 
 
 }
 
+
 [System.Serializable]
 public struct AgeType {
     public enum AgeName {
+        pregame,
         middle,
         modern,
         contemporary,

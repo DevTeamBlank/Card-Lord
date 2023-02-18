@@ -12,7 +12,7 @@ public class ChipManager : MonoBehaviour, IChipManager {
 
     public GameObject[] ChipPrefabs_;
 
-    public GameObject ReceiveChip(ChipType chipType) {
+    public GameObject ReceiveChip(int chipType) {
         throw new System.NotImplementedException();
     }
 
@@ -20,21 +20,18 @@ public class ChipManager : MonoBehaviour, IChipManager {
         throw new System.NotImplementedException();
     }
 
-    [ArrayElementTitle("chipType")]
     [SerializeField] int[] numberOfPlayedChips = new int[7]; // UI에 칩 표시할 때, numberOfChips[i] - numberOfPlayedChips[i] 를 보여주면 됨
 
     public int[] GetPlayedChips() {
         return numberOfPlayedChips;
     }
 
-    [ArrayElementTitle("chipType")]
     [SerializeField] readonly Sprite[,] sprites_ = new Sprite[4,7];
 
     public void UpdateSprite(int newAge) {
         throw new System.NotImplementedException();
     }
 
-    [ArrayElementTitle("chipType")]
     [SerializeField] int[] numberOfChips = new int[7];
 
     public void UpdateCurrentChips(int[] numberOfChips) { // EncounterManager

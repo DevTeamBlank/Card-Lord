@@ -31,4 +31,5 @@ public class InputManager : MonoBehaviour, IInputManager
         IChoice currentChoice = choice.GetComponent<Choice>();
         currentChoice.ChooseChoice();
     }
+
 }

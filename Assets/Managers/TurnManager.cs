@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour, ITurnManager
-{
+public class TurnManager : MonoBehaviour, ITurnManager {
     public static ITurnManager Inst;
 
     private void Awake() {
         Inst = this;
     }
 
-    public readonly int maxTurn;
+    public readonly int maxTurn = ITurnManager.MAX_TURN;
 
     [SerializeField] AgeType age;
     [SerializeField] int turn;
@@ -19,19 +18,23 @@ public class TurnManager : MonoBehaviour, ITurnManager
         return age;
     }
 
+    public void AgeStart() {
+        age.ageType++;
+        throw new System.NotImplementedException();
+    }
+    public void AgeEnd() {
+        throw new System.NotImplementedException();
+    }
+
     public int GetTurn() {
         return turn;
     }
 
-    public void NextTurn() {
+    public void TurnStart() {
         turn++;
-        if (maxTurn < turn) {
-            // policy
-        }
-    }
 
-    public void DrawNextEncounter() {
-        // Call EncounterManager with info
+    }
+    public void TurnEnd() {
         throw new System.NotImplementedException();
     }
 

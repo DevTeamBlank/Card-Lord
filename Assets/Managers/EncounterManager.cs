@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -28,30 +29,34 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
     [SerializeField] GameObject[] age4Encounters_;
     [SerializeField] bool[] age4Encountablity;
 
-    [SerializeField] GameObject[] artist;
-    [SerializeField] GameObject[] eureka;
-    [SerializeField] GameObject[] building;
-    [SerializeField] GameObject[] expedition;
-    [SerializeField] GameObject[] policy;
+    [SerializeField] GameObject[] policy = new GameObject[4];
+    [SerializeField] GameObject[] building = new GameObject[4];
+    [SerializeField] GameObject[] artist = new GameObject[4];
+    [SerializeField] GameObject[] eureka = new GameObject[4];
+    [SerializeField] GameObject[] expedition = new GameObject[4];
+
+    [SerializeField]
+    int[] fixedTurn = new int[5];
 
     IEncounter currentEncounter;
 
     public void Notify(int number) {
 
     }
-    
+
     public IEncounter GetCurrentEncounter() {
         return currentEncounter;
     }
 
     public void DrawNextEncounter() {
-        bool isFixed = CheckFixedEncounter();
-        AgeType age = TurnManager.Inst.GetAge();
+        if (!CheckFixedEncounter()) {
+            AgeType age = TurnManager.Inst.GetAge();
 
-        // TODO
-        GameObject encounter = age3Encounters_[0];
+            // TODO
+            GameObject encounter = age3Encounters_[0];
 
-        UpdateCurrentEncounter(encounter);
+            UpdateCurrentEncounter(encounter);
+        }
         throw new System.NotImplementedException();
     }
 
@@ -62,11 +67,36 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
     }
 
     bool CheckFixedEncounter() {
-        int turn = TurnManager.Inst.GetTurn();
+        int age = (int) GameManager.Inst.GetAge().ageType;
+        int turn = GameManager.Inst.GetTurn();
+        if (turn == fixedTurn[0]) {
+            UpdateCurrentEncounter(policy[age]);
+            return true;           
+        } else if (turn == fixedTurn[1]) {
+            UpdateCurrentEncounter(building[age]);
+            return true;
+        } else if (turn == fixedTurn[2]) {
+            UpdateCurrentEncounter(artist[age]);
+            return true;
+        } else if (turn == fixedTurn[3]) {
+            UpdateCurrentEncounter(eureka[age]);
+            return true;
+        } else if (turn == fixedTurn[4]) {
+            UpdateCurrentEncounter(expedition[age]);
+            return true;
+        }
         return false;
     }
 
-    Encounter IEncounterManager.GetCurrentEncounter() {
-        throw new System.NotImplementedException();
+    IEncounter IEncounterManager.GetCurrentEncounter() {
+        return currentEncounter;
+    }
+
+    public void FixEncounter() {
+        fixedTurn[0] = 0; // policy
+        for (int i = 0; i < 4; i++) { // building, artist, eureka, expedition
+            int random = GameManager.Inst.GetRandom(i, 8);
+            fixedTurn[i + 1] = 4 + 8 * i + random;
+        }
     }
 }

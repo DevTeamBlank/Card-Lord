@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chip : MonoBehaviour, IChip {
+public class Chip : MonoBehaviour, IChip, IClickable {
 
-    ChipType chipType;
+    [SerializeField] ChipType chipType;
     [SerializeField] bool isPlayed = false;
 
     public ChipType getChipType() {
@@ -28,16 +28,25 @@ public class Chip : MonoBehaviour, IChip {
     }    
 
     public void UpdateSprite(Sprite newSprite) {
-        GetComponent<SpriteRenderer>().sprite = newSprite;
+        transform.Find("TopSprite").GetComponent<SpriteRenderer>().sprite = newSprite;
+        transform.Find("BottomSprite").GetComponent<SpriteRenderer>().sprite = newSprite;
     }
 
-    // Update is called once per frame
-    void Update() {
-        // if (clicked)
-        //     Choose();
+    public void OnMouseEnter() {
+        Cursor.Inst.SetStatus(Status.isClickable);
+    }
+    
+
+    public void OnMouseDown() {
+        Cursor.Inst.SetStatus(Status.isClicking);        
     }
 
-    void Choose() {
-        InputManager.Inst.ClickedChip(gameObject);
+    public void OnMouseUpAsButton() {
+        Cursor.Inst.SetStatus(Status.general);
+        GameManager.Inst.ClickedChip(gameObject);
+    }
+
+    public void OnMouseExit() {
+        Cursor.Inst.SetStatus(Status.general);
     }
 }
