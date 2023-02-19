@@ -16,5 +16,5 @@ public interface IEncounterManager {
     IEncounter GetCurrentEncounter();
     void DrawNextEncounter();
 
-
+    void UpdateCurrentChips(int[] numberOfChips);
 }

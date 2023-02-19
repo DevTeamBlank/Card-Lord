@@ -4,32 +4,38 @@ using UnityEngine;
 
 public class Chip : MonoBehaviour, IChip, IClickable {
 
-    [SerializeField] ChipType chipType;
+    [SerializeField] protected ChipType chipType;
     [SerializeField] bool isPlayed = false;
+    [SerializeField] protected Sprite[] sprites_;
 
-    public ChipType getChipType() {
+    public ChipType GetChipType() {
         return chipType;
     }
     public bool GetIsPlayed() {
         return isPlayed;
     }
-    public void SetIsPlayed(bool isPlayed) {
+    
+    void SetIsPlayed(bool isPlayed) {
         this.isPlayed = isPlayed;
     }
 
     public void PlayChip() {
         SetIsPlayed(true);
-        throw new System.NotImplementedException();
+        GameManager.Inst.PlayChip(gameObject);
     }
 
     public void RetrieveChip() {
         SetIsPlayed(false);
-        throw new System.NotImplementedException();
+        GameManager.Inst.RetrieveChip(gameObject);
     }    
 
-    public void UpdateSprite(Sprite newSprite) {
-        transform.Find("TopSprite").GetComponent<SpriteRenderer>().sprite = newSprite;
-        transform.Find("BottomSprite").GetComponent<SpriteRenderer>().sprite = newSprite;
+    int IndexOf(AgeType ageType) {
+        return (int)ageType.ageType;
+    }
+
+    public void UpdateSprite(AgeType ageType) {
+        transform.Find("TopSprite").GetComponent<SpriteRenderer>().sprite = sprites_[IndexOf(ageType)];
+        transform.Find("BottomSprite").GetComponent<SpriteRenderer>().sprite = sprites_[IndexOf(ageType)];
     }
 
     public void OnMouseEnter() {

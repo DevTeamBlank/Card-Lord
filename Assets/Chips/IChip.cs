@@ -5,11 +5,11 @@ using UnityEngine;
 
 public interface IChip {
 
-    void SetIsPlayed(bool isPlayed);
+    // void SetIsPlayed(bool isPlayed);
     bool GetIsPlayed(); // true: 칩이 이미 내짐, false: 칩이 컨테이너에 있음
 
-    ChipType getChipType();
-    void UpdateSprite(Sprite newSprite);
+    ChipType GetChipType();
+    void UpdateSprite(AgeType ageType);
 
     void PlayChip(); // 칩 컨테이너에서 클릭 시
     void RetrieveChip(); // 이미 낸 칩을 클릭 시

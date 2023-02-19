@@ -179,9 +179,9 @@ GameObject:
   - component: {fileID: 7140420449326428278}
   - component: {fileID: 7140420449326428279}
   - component: {fileID: 7140420449326428276}
-  - component: {fileID: 7140420449326428277}
   - component: {fileID: 2403006036592334618}
   - component: {fileID: -6735617340119309858}
+  - component: {fileID: 4911718258603433152}
   m_Layer: 0
   m_Name: Gold
   m_TagString: Chip
@@ -258,20 +258,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7140420449326428277
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140420449326428282}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &2403006036592334618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +289,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &4911718258603433152
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140420449326428282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7516689881059084831
 GameObject:
   m_ObjectHideFlags: 0

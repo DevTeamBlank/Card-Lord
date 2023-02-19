@@ -35,8 +35,7 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
     [SerializeField] GameObject[] eureka = new GameObject[4];
     [SerializeField] GameObject[] expedition = new GameObject[4];
 
-    [SerializeField]
-    int[] fixedTurn = new int[5];
+    [SerializeField] int[] fixedTurn = new int[5];
 
     IEncounter currentEncounter;
 
@@ -88,15 +87,17 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
         return false;
     }
 
-    IEncounter IEncounterManager.GetCurrentEncounter() {
-        return currentEncounter;
-    }
-
     public void FixEncounter() {
         fixedTurn[0] = 0; // policy
         for (int i = 0; i < 4; i++) { // building, artist, eureka, expedition
             int random = GameManager.Inst.GetRandom(i, 8);
             fixedTurn[i + 1] = 4 + 8 * i + random;
         }
+    }
+
+    int[] numberOfChips = new int[7];
+
+    public void UpdateCurrentChips(int[] numberOfChips) {
+        this.numberOfChips = numberOfChips;
     }
 }

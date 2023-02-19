@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Manager
   - Chip
+  - ChipContainer
+  - Field
   layers:
   - Default
   - TransparentFX

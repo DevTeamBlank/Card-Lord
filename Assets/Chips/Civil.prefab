@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2013394185518279291}
   - component: {fileID: 2013394185518279290}
   - component: {fileID: 2013394185518279289}
-  - component: {fileID: 2013394185518279288}
   - component: {fileID: 6467147672705469719}
   - component: {fileID: 7241514653986301485}
+  - component: {fileID: 5524801973853578584}
   m_Layer: 0
   m_Name: Civil
   m_TagString: Chip
@@ -90,20 +90,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2013394185518279288
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013394185518279287}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &6467147672705469719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +121,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &5524801973853578584
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013394185518279287}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3645383163604965968
 GameObject:
   m_ObjectHideFlags: 0

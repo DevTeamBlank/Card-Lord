@@ -39,10 +39,11 @@ public interface IGameManager {
 
     // ChipManager.Inst
     void UpdateSprite(AgeType newAge); // prefab, 칩 컨테이너에 있는 sprite를 변경
-    GameObject ReceiveChip(ChipType chipType); // 해당 타입을 Intantiate 해서 칩 컨테이너에 추가
+    void ReceiveChip(ChipType chipType); // 해당 타입을 Intantiate 해서 칩 컨테이너에 추가
     int[] GetPlayedChips(); // 칩이 이동할때마다, 선택지들의 선택 가능 여부를 업데이트
     void RemovePlayedChips(); // 선택지를 선택할 때 낸 칩들을 전부 제거
-
+    public void PlayChip(GameObject chip); // 이 칩을 냄
+    public void RetrieveChip(GameObject chip); // 이 칩을 다시 가져옴
     void UpdateCurrentChips(int[] numberOfChips); // 현재 칩을 업데이트
 
 }

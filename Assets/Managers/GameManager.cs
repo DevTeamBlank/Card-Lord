@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour, IGameManager {
     void AgeStart() {
         TurnManager.Inst.AgeStart();
         EncounterManager.Inst.FixEncounter();
-        ChipManager.Inst.UpdateSprite((int) TurnManager.Inst.GetAge().ageType);
+        ChipManager.Inst.UpdateSprite(TurnManager.Inst.GetAge());
     }
 
     void SetSeed() {
@@ -64,11 +64,11 @@ public class GameManager : MonoBehaviour, IGameManager {
     }
 
     public void UpdateSprite(AgeType newAge) {
-        ChipManager.Inst.UpdateSprite((int) newAge.ageType);
+        ChipManager.Inst.UpdateSprite(newAge);
     }
 
-    public GameObject ReceiveChip(ChipType chipType) {
-        return ChipManager.Inst.ReceiveChip((int) chipType.chipType);
+    public void ReceiveChip(ChipType chipType) {
+        ChipManager.Inst.ReceiveChip(chipType);
     }
 
     public int[] GetPlayedChips() {
@@ -79,8 +79,16 @@ public class GameManager : MonoBehaviour, IGameManager {
         ChipManager.Inst.RemovePlayedChips();
     }
 
+    public void PlayChip(GameObject chip) {
+        ChipManager.Inst.PlayChip(chip);
+    }
+
+    public void RetrieveChip(GameObject chip) {
+        ChipManager.Inst.RetrieveChip(chip);
+    }
+
     public void UpdateCurrentChips(int[] numberOfChips) {
-        ChipManager.Inst.UpdateCurrentChips(numberOfChips);
+        EncounterManager.Inst.UpdateCurrentChips(numberOfChips);
     }
 
    
