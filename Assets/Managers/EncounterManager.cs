@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class EncounterManager : MonoBehaviour, IEncounterManager {
 
@@ -19,15 +18,9 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
         Inst = this;
     }
 
-    // Encounter가 등장하려면 Encountability[i] 가 true이어야한다.
-    [SerializeField] GameObject[] age1Encounters_;
-    [SerializeField] bool[] age1Encountablity;
-    [SerializeField] GameObject[] age2Encounters_;
-    [SerializeField] bool[] age2Encountablity;
-    [SerializeField] GameObject[] age3Encounters_;
-    [SerializeField] bool[] age3Encountablity;
-    [SerializeField] GameObject[] age4Encounters_;
-    [SerializeField] bool[] age4Encountablity;
+    public GameObject[][] encounters_;
+
+    [SerializeField] Vector3 encounterPosition_;
 
     [SerializeField] GameObject[] policy = new GameObject[4];
     [SerializeField] GameObject[] building = new GameObject[4];
@@ -37,32 +30,34 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
 
     [SerializeField] int[] fixedTurn = new int[5];
 
-    IEncounter currentEncounter;
-
-    public void Notify(int number) {
-
-    }
+    GameObject currentEncounter;    
 
     public IEncounter GetCurrentEncounter() {
-        return currentEncounter;
+        return currentEncounter.GetComponent<IEncounter>();
     }
 
     public void DrawNextEncounter() {
         if (!CheckFixedEncounter()) {
-            AgeType age = TurnManager.Inst.GetAge();
+            int age = (int) TurnManager.Inst.GetAge().ageType;
 
-            // TODO
-            GameObject encounter = age3Encounters_[0];
+            int[] sum = new int[encounters_[age].Length]; // 누적 합
+            sum[0] = encounters_[age][0].GetComponent<IEncounter>().GetPossibility();
+            for (int i = 1; i < sum.Length; i++) {
+                sum[i] = sum[i - 1] + encounters_[age][i - 1].GetComponent<IEncounter>().GetPossibility();
+            }
+            int random = GameManager.Inst.GetRandom(0, sum[sum.Length - 1]);
+            int index = System.Array.BinarySearch(sum, random);
 
-            UpdateCurrentEncounter(encounter);
+            UpdateCurrentEncounter(encounters_[age][index]);
         }
         throw new System.NotImplementedException();
     }
 
     void UpdateCurrentEncounter(GameObject encounter) {
-        currentEncounter = encounter.GetComponent<Encounter>();
-        currentEncounter.Encountered();
-        currentEncounter.Display();
+        currentEncounter.transform.position = new Vector3(100, 100, 100);
+        currentEncounter = encounter;
+        currentEncounter.GetComponent<IEncounter>().Encountered();
+        encounter.transform.position = encounterPosition_;
     }
 
     bool CheckFixedEncounter() {
@@ -95,9 +90,13 @@ public class EncounterManager : MonoBehaviour, IEncounterManager {
         }
     }
 
-    int[] numberOfChips = new int[7];
-
     public void UpdateCurrentChips(int[] numberOfChips) {
-        this.numberOfChips = numberOfChips;
+        foreach(GameObject encounter in encounters_[(int)GameManager.Inst.GetAge().ageType]) {
+            encounter.GetComponent<IEncounter>().UpdateEncountablity(numberOfChips);
+        }
+    }
+
+    public void UpdateChoice() {
+        currentEncounter.GetComponent<IEncounter>().UpdateChoosability();
     }
 }

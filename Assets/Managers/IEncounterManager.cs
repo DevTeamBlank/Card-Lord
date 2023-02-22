@@ -13,6 +13,8 @@ public interface IEncounterManager {
 
     void FixEncounter(); // 게임 시작 시 한번 호출
 
+    void UpdateChoice();
+
     IEncounter GetCurrentEncounter();
     void DrawNextEncounter();
 

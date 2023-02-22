@@ -51,3 +51,12 @@ TagManager:
   - name: Image
     uniqueID: 3350203685
     locked: 0
+  - name: Encounter
+    uniqueID: 787649645
+    locked: 0
+  - name: Choice
+    uniqueID: 1695262407
+    locked: 0
+  - name: Text
+    uniqueID: 3140904891
+    locked: 0

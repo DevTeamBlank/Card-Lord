@@ -4,9 +4,10 @@ using UnityEngine;
 
 public interface IEncounter {
 
-    void Display(); // when this encounter is drawn from the pool
+    int GetPossibility();
 
     void Encountered();
     void UpdateEncountablity(int[] numberOfCurrentChips);
-    bool IsEncountable();
+
+    void UpdateChoosability();
 }

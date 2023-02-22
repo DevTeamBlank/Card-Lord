@@ -1,35 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Encounter : MonoBehaviour, IEncounter {
 
-    public readonly int index_;
-    public readonly string nomenclature_;
-    public readonly string text_;
+    [SerializeField] protected int index_;
+    [SerializeField] protected string title_;
+    [SerializeField] protected string detail_;
+    [SerializeField] protected int possibility_ = 5;
 
-    public GameObject[] choices;
+    GameObject[] choices;
 
-    public void Display() {
+    TextMeshProUGUI title;
+    TextMeshProUGUI detail;
 
+    void Start() {
+        FindChoice();
+        FindTMPro();
+        DisplayText();
+    }
+
+    void FindChoice() {
+        choices = new GameObject[transform.childCount];
+        for (int i = 0; i < choices.Length; i++) {
+            choices[i] = transform.GetChild(i).gameObject;
+        }
+    }
+
+    void FindTMPro() {
+        title = transform.Find("Title").GetComponent<TextMeshProUGUI>();
+        detail = transform.Find("Detail").GetComponent<TextMeshProUGUI>();
+    }
+
+    void DisplayText() {
+        title.text = title_;
+        detail.text = detail_;
     }
 
     public void Encountered() {
+        possibility_ = 0;
         encountered = true;
     }
 
     [SerializeField] protected bool encountered = false;
-    [SerializeField] protected bool isEncountable = true;
-
-    public bool IsEncountable() {
-        if (encountered) {
-            return false;
-        }
-        return isEncountable;
-    }
 
     public virtual void UpdateEncountablity(int[] numberOfCurrentChips) {
-        // 상속받아서 구현할 것
-        throw new System.NotImplementedException();
+       if (encountered) {
+            return;
+       }
+    }
+
+    public int GetPossibility() {
+        return possibility_;
+    }
+
+    public void UpdateChoosability() {
+       foreach (GameObject choice in choices) {
+            choice.GetComponent<IChoice>().UpdateChoosability();
+        }
     }
 }

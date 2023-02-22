@@ -27,6 +27,8 @@ public interface IGameManager {
     public void TurnEnd();
 
     // EncounterManager.Inst
+
+    void UpdateChoice();
     IEncounter GetCurrentEncounter();
     void DrawNextEncounter();
 

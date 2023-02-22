@@ -81,6 +81,7 @@ public class ChipManager : MonoBehaviour, IChipManager {
             z = Random.Range(-fieldOffset_, fieldOffset_)
         };
         chip.transform.SetPositionAndRotation(pos, new Quaternion(Random.Range(0, maxQ), Random.Range(0, maxQ), Random.Range(0, maxQ), Random.Range(0, maxQ)));
+        GameManager.Inst.UpdateChoice();
     }
 
     public void RetrieveChip(GameObject chip) {
@@ -94,6 +95,7 @@ public class ChipManager : MonoBehaviour, IChipManager {
             z = Random.Range(-fieldOffset_, fieldOffset_)
         };
         chip.transform.SetPositionAndRotation(pos, new Quaternion(Random.Range(0, maxQ), Random.Range(0, maxQ), Random.Range(0, maxQ), Random.Range(0, maxQ)));
+        GameManager.Inst.UpdateChoice();
     }
 
     public int[] GetPlayedChips() {

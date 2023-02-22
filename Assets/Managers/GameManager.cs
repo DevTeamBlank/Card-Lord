@@ -91,8 +91,6 @@ public class GameManager : MonoBehaviour, IGameManager {
         EncounterManager.Inst.UpdateCurrentChips(numberOfChips);
     }
 
-   
-
     public void TurnEnd() {
         TurnManager.Inst.TurnStart();
     }
@@ -103,5 +101,9 @@ public class GameManager : MonoBehaviour, IGameManager {
 
     public void ClickedChoice(GameObject choice) {
         InputManager.Inst.ClickedChoice(choice);
+    }
+
+    public void UpdateChoice() {
+        EncounterManager.Inst.UpdateChoice();
     }
 }
